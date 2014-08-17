@@ -1,0 +1,169 @@
+html, body {
+  height: 100%;
+  font-family: '8BIT WONDER', courier, Arial, sans-serif;
+}
+
+#tlop {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: hidden;
+  background: #333;
+  width: 1200px;
+  height: 560px;
+}
+
+#splash {
+  text-align: center;
+  color: #CCC;
+
+  .home,
+  .instructions {
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    padding: 50px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0.5s ease-in-out;
+    opacity: 0;
+
+    &.displayed {
+      opacity: 1;
+    }
+  }
+
+  .instructions {
+    .opacity: 0
+  }
+
+  h1 {
+    font-size: 30px;
+    line-height: 32px;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    font-size: 25px;
+    line-height: 27px;
+    margin-bottom: 20px;
+  }
+
+  li {
+    margin-bottom: 15px;
+    font-size: 18px;
+    line-height: 20px;
+    padding-bottom: 5px;
+  }
+
+  .splash-menu .selected {
+    border-bottom: 5px solid #CCC;
+    display: inline-block;
+  }
+
+  .instruction li {
+    text-align: left
+  }
+}
+
+#field,
+#map {
+  position: absolute;
+  clear: both;
+}
+
+#pookie {
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 2;
+  background: pink;
+
+  &[data-orientation="up"] {
+    border-top: 5px solid red;
+  }
+
+  &[data-orientation="down"] {
+    border-bottom: 5px solid red;
+  }
+
+  &[data-orientation="left"] {
+    border-left: 5px solid red;
+  }
+
+  &[data-orientation="right"] {
+    border-right: 5px solid red;
+  }
+}
+
+.block {
+  box-sizing: border-box;
+  float: left;
+
+  &.road {
+    background: #8C8344;
+  }
+
+  &.grass {
+    background: #79B691;
+  }
+
+  &.bush {
+    border: 10px solid rgba(0, 0, 0, 0);
+    background-color: #2B5F3B;
+    background-clip: padding-box;
+
+    &.step {
+      background-color: #575700;
+    }
+  }
+
+  &.pot {
+    border: 10px solid rgba(0, 0, 0, 0);
+    background-color: #7777FF;
+    background-clip: padding-box;
+
+    &.step {
+      background-color: #3435FF;
+    }
+  }
+
+  &.rock {
+    border: 10px solid rgba(0, 0, 0, 0);
+    background-color: #483B2B;
+    background-clip: padding-box;
+  }
+
+  &.top-edge {
+    background: #2D392D;
+  }
+
+  &.left-edge {
+    background: #2D392D;
+  }
+
+  &.bottom-edge {
+    background: #2D392D;
+  }
+
+  &.right-edge {
+    background: #2D392D;
+  }
+
+  &.top-left-edge {
+    background: #2D392D;
+  }
+
+  &.bottom-left-edge {
+    background: #2D392D;
+  }
+
+  &.top-right-edge {
+    background: #2D392D;
+  }
+
+  &.bottom-right-edge {
+    background: #2D392D;
+  }
+}
+

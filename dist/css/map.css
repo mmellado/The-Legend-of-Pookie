@@ -1,0 +1,142 @@
+html, body {
+  height: 100%;
+  font-family: '8BIT WONDER', courier, Arial, sans-serif;
+}
+
+#tlop {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: hidden;
+  background: #333;
+  width: 1200px;
+  height: 560px;
+}
+
+#splash {
+  text-align: center;
+  color: #CCC;
+}
+#splash .home,
+#splash .instructions {
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  padding: 50px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0;
+}
+#splash .home.displayed,
+#splash .instructions.displayed {
+  opacity: 1;
+}
+#splash .instructions {
+  .opacity: 0;
+}
+#splash h1 {
+  font-size: 30px;
+  line-height: 32px;
+  margin-bottom: 20px;
+}
+#splash h2 {
+  font-size: 25px;
+  line-height: 27px;
+  margin-bottom: 20px;
+}
+#splash li {
+  margin-bottom: 15px;
+  font-size: 18px;
+  line-height: 20px;
+  padding-bottom: 5px;
+}
+#splash .splash-menu .selected {
+  border-bottom: 5px solid #CCC;
+  display: inline-block;
+}
+#splash .instruction li {
+  text-align: left;
+}
+
+#field,
+#map {
+  position: absolute;
+  clear: both;
+}
+
+#pookie {
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 2;
+  background: pink;
+}
+#pookie[data-orientation="up"] {
+  border-top: 5px solid red;
+}
+#pookie[data-orientation="down"] {
+  border-bottom: 5px solid red;
+}
+#pookie[data-orientation="left"] {
+  border-left: 5px solid red;
+}
+#pookie[data-orientation="right"] {
+  border-right: 5px solid red;
+}
+
+.block {
+  box-sizing: border-box;
+  float: left;
+}
+.block.road {
+  background: #8C8344;
+}
+.block.grass {
+  background: #79B691;
+}
+.block.bush {
+  border: 10px solid transparent;
+  background-color: #2B5F3B;
+  background-clip: padding-box;
+}
+.block.bush.step {
+  background-color: #575700;
+}
+.block.pot {
+  border: 10px solid transparent;
+  background-color: #7777FF;
+  background-clip: padding-box;
+}
+.block.pot.step {
+  background-color: #3435FF;
+}
+.block.rock {
+  border: 10px solid transparent;
+  background-color: #483B2B;
+  background-clip: padding-box;
+}
+.block.top-edge {
+  background: #2D392D;
+}
+.block.left-edge {
+  background: #2D392D;
+}
+.block.bottom-edge {
+  background: #2D392D;
+}
+.block.right-edge {
+  background: #2D392D;
+}
+.block.top-left-edge {
+  background: #2D392D;
+}
+.block.bottom-left-edge {
+  background: #2D392D;
+}
+.block.top-right-edge {
+  background: #2D392D;
+}
+.block.bottom-right-edge {
+  background: #2D392D;
+}

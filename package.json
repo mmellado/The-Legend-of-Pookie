@@ -1,0 +1,16 @@
+{
+  "name": "TheLegendOfPookie",
+  "version": "1.0.0",
+  "description": "Experimental videogame built with HTML/CSS/JavaScript",
+  "author": "Marcos Mellado (@mmellado)",
+  "homepage": "http://mellados.com/labs/the-legend-of-pookie",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "^1.6.1",
+    "grunt-contrib-uglify": "~0.3.0",
+    "grunt-contrib-concat": "~0.4.0",
+    "grunt-contrib-sass": "~0.7.4",
+    "grunt-contrib-handlebars": "~0.8.0",
+    "grunt-replace": "~0.4.4"
+  }
+}
