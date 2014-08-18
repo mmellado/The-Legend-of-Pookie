@@ -27,7 +27,10 @@ Tlop.Pookie = (function(){
 
   _pookie;
 
-  var _init = function() {
+  var _load = function() {
+    if (_pookie) {
+      Tlop.Const.DOM.TLOP.removeChild(_pookie);
+    }
     _pookie = document.createElement('DIV');
     _pookie.id = 'pookie';
     _pookie.style.top = (Tlop.Const.GRID.START_ROW * Tlop.Const.GRID.BLOCK) + 'px';
@@ -38,11 +41,6 @@ Tlop.Pookie = (function(){
 
     _render();
     _events();
-  };
-
-
-  var _getPookie = function() {
-    return _pookie;
   };
 
   var _setOrientation = function(o) {
@@ -59,7 +57,6 @@ Tlop.Pookie = (function(){
         mapSize = Tlop.Map.getMapSize(),
         mapWidth = mapSize.cols,
         mapHeight = mapSize.rows,
-        orientation = _pookie.getAttribute(DATA.ORIENTATION),
         currentCords = Tlop.Map.getCurrentCords(),
         nextTile = '';
 
@@ -68,7 +65,8 @@ Tlop.Pookie = (function(){
         // Up
         case 119:
           nextTile = document.querySelector('#map div[data-cords="' + currentCords[0] + '-' + (currentCords[1]-1) + '"]');
-          _pookie.setAttribute(DATA.ORIENTATION, ORT.UP);
+          _setOrientation(ORT.UP);
+
           if (nextTile && (nextTile.getAttribute(DATA.ROW) >= 0) && Tlop.Utils.hasClass(nextTile, CLASS.STEP)) {
             Tlop.Map.setCurrentCords(currentCords[0], currentCords[1] -1);
             Tlop.Map.setMapTop(top + Tlop.Const.GRID.BLOCK);
@@ -78,7 +76,8 @@ Tlop.Pookie = (function(){
         // Down
         case 115:
           nextTile = document.querySelector('#map div[data-cords="' + currentCords[0] + '-' + (currentCords[1]+1) + '"]');
-          _pookie.setAttribute(DATA.ORIENTATION, ORT.DOWN);
+          _setOrientation(ORT.DOWN);
+
           if (nextTile && (nextTile.getAttribute(DATA.ROW) < mapHeight) && Tlop.Utils.hasClass(nextTile, CLASS.STEP)) {
             Tlop.Map.setCurrentCords(currentCords[0], currentCords[1] + 1);
             Tlop.Map.setMapTop(top - Tlop.Const.GRID.BLOCK);
@@ -89,7 +88,7 @@ Tlop.Pookie = (function(){
         case 97:
           // increase left
           nextTile = document.querySelector('#map div[data-cords="' + (currentCords[0]-1) + '-' + currentCords[1] + '"]');
-          _pookie.setAttribute(DATA.ORIENTATION, ORT.LEFT);
+          _setOrientation(ORT.LEFT);
 
           if (nextTile && (nextTile.getAttribute(DATA.COL) >= 0) && Tlop.Utils.hasClass(nextTile, CLASS.STEP)) {
             Tlop.Map.setCurrentCords(currentCords[0] - 1, currentCords[1]);
@@ -101,7 +100,7 @@ Tlop.Pookie = (function(){
         case 100:
           // decrease left
           nextTile = document.querySelector('#map div[data-cords="' + (currentCords[0]+1) + '-' + currentCords[1] + '"]');
-          _pookie.setAttribute(DATA.ORIENTATION, ORT.RIGHT);
+          _setOrientation(ORT.RIGHT);
 
           if (nextTile && (nextTile.getAttribute(DATA.COL) < mapWidth) && Tlop.Utils.hasClass(nextTile, CLASS.STEP)) {
             Tlop.Map.setCurrentCords(currentCords[0] + 1, currentCords[1]);
@@ -172,7 +171,7 @@ Tlop.Pookie = (function(){
   };
 
   return {
-    init: _init
+    load: _load
   };
 
 })();

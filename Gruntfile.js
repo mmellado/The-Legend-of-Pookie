@@ -6,7 +6,15 @@ module.exports = function (grunt) {
       options: {
         force: true,
         laxbreak: true,
-        quotmark: 'single'
+        quotmark: 'single',
+        undef: true,
+        unused: true,
+        browser: true,
+        ignores: 'src/js/tlop-templates.js',
+        globals: {
+          Tlop: true,
+          Handlebars: true
+        },
       },
       files: ['src/js/*.js']
     },
@@ -29,6 +37,21 @@ module.exports = function (grunt) {
       }
     },
 
+    handlebars: {
+      compile: {
+        options: {
+          namespace: "Tlop.Templates",
+          processName: function(filePath) {
+            var name = filePath.split('/')[2].split('.');
+            return name[0];
+          }
+        },
+        files: {
+          "src/js/tlop-templates.js": "src/templates/*.hbs",
+        }
+      }
+    },
+
     replace: {
       options: {
         prefix: '@@'
@@ -36,7 +59,7 @@ module.exports = function (grunt) {
       dev: {
         options: {
           variables: {
-            'script': 'js/tlop.js'
+            'script': 'js/tlop.js',
           }
         },
         files: [
@@ -46,7 +69,7 @@ module.exports = function (grunt) {
       prod: {
         options: {
           variables: {
-            'script': 'js/tlop.min.js'
+            'script': 'js/tlop.min.js',
           }
         },
         files: [
@@ -65,11 +88,14 @@ module.exports = function (grunt) {
       },
       dev: {
         files: {
-          'dev/js/tlop.js': ['src/js/tlop-utils.js',
+          'dev/js/tlop.js': ['lib/handlebars-v1.3.0.js',
+                             'src/js/tlop-templates.js',
+                             'src/js/tlop-utils.js',
                              'src/js/tlop-constants.js',
                              'src/js/tlop-settings.js',
                              'src/js/tlop-script.js',
                              'src/js/tlop-splash-screen.js',
+                             'src/js/tlop-menu.js',
                              'src/js/tlop-maps.js',
                              'src/js/tlop-pookie.js',
                              'src/js/tlop-engine.js'],
@@ -80,11 +106,14 @@ module.exports = function (grunt) {
 
       prod: {
         files: {
-          'dist/js/tlop.js': ['src/js/tlop-utils.js',
+          'dist/js/tlop.js': ['lib/handlebars-v1.3.0.js',
+                              'src/js/tlop-templates.js',
+                              'src/js/tlop-utils.js',
                               'src/js/tlop-constants.js',
                               'src/js/tlop-settings.js',
                               'src/js/tlop-script.js',
                               'src/js/tlop-splash-screen.js',
+                              'src/js/tlop-menu.js',
                               'src/js/tlop-maps.js',
                               'src/js/tlop-pookie.js',
                               'src/js/tlop-engine.js'],
@@ -109,6 +138,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-handlebars');
   grunt.loadNpmTasks('grunt-replace');
 
-  grunt.registerTask('dev',  ['sass:dev',  'jshint', 'concat:dev',            'replace:dev' ]);
-  grunt.registerTask('prod', ['sass:prod', 'jshint', 'concat:prod', 'uglify', 'replace:prod']);
+  grunt.registerTask('dev',  ['sass:dev',  'jshint', 'handlebars', 'concat:dev',            'replace']);
+  grunt.registerTask('prod', ['sass:prod', 'jshint', 'handlebars', 'concat:prod', 'uglify', 'replace']);
 };

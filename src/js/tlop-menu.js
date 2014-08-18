@@ -1,36 +1,47 @@
 Tlop = Tlop || {};
 
-Tlop.Splash = (function() {
+Tlop.Menu = (function() {
 
-  var _instructions = false;
+  var _menu;
 
   var _load = function() {
-    Tlop.Const.DOM.TLOP.appendChild(Tlop.Utils.getTemplate('splash'));
-    _loadEvents();
+    _menu = Tlop.Utils.getTemplate('menu');
+    Tlop.Const.DOM.TLOP.appendChild(_menu);
+     _loadMenuEvents();
   };
 
   var _unload = function() {
-    _unloadEvents();
-    Tlop.Settings.Setting.pause = false;
-    Tlop.Map.render('main', [-2, -2]);
-    Tlop.Pookie.load();
-    Tlop.Menu.load();
+    _unloadMenuEvents();
+    _hideMenu();
+  };
+
+  var _showMenu = function() {
+    if( _menu) {
+      Tlop.Utils.addClass(_menu, 'paused');
+    }
+  };
+
+  var _hideMenu = function() {
+    if (_menu) {
+      Tlop.Utils.removeClass(_menu, 'paused');
+    }
   };
 
   var _actions = function(evt) {
     var key = evt.keyCode,
-        selected = document.querySelector('.splash-menu .selected'),
-        mainScreen = document.querySelector('.home'),
-        howtoScreen = document.querySelector('.instructions'),
+        selected,
         next;
 
-    evt.preventDefault();
+    if (Tlop.Settings.Setting.pause && _menu) {
+      evt.preventDefault();
+      selected = _menu.querySelector('.selected');
+    }
 
     switch (key) {
       // Down or S
       case 40:
       case 83:
-        if (!_instructions) {
+        if (Tlop.Settings.Setting.pause) {
           Tlop.Utils.removeClass(selected, 'selected');
           next = (selected.nextElementSibling) ? selected.nextElementSibling : selected.previousElementSibling;
           Tlop.Utils.addClass(next, 'selected');
@@ -40,33 +51,32 @@ Tlop.Splash = (function() {
       // Up or W
       case 38:
       case 87:
-        if (!_instructions) {
+        if (Tlop.Settings.Setting.pause) {
           Tlop.Utils.removeClass(selected, 'selected');
           next = (selected.previousElementSibling) ? selected.previousElementSibling : selected.nextElementSibling;
           Tlop.Utils.addClass(next, 'selected');
         }
         break;
 
-      // Enter
+      // Enter or L
       case 13:
-        if (_instructions) {
-          _instructions = false;
-          Tlop.Utils.removeClass(howtoScreen, 'displayed');
-          Tlop.Utils.addClass(mainScreen, 'displayed');
+        if (Tlop.Settings.Setting.pause) {
+          Tlop.Settings.Setting.pause = false;
+          _hideMenu();
         } else {
-          if (Tlop.Utils.hasClass(selected, 'start')) {
-            _unload();
-          } else {
-            _instructions = true;
-            Tlop.Utils.removeClass(mainScreen, 'displayed');
-            Tlop.Utils.addClass(howtoScreen, 'displayed');
-          }
+          Tlop.Settings.Setting.pause = true;
+          _showMenu();
         }
         break;
+
+      // K (select)
     }
+
+    // Re enable actions
+    return true;
   };
 
-  var _loadEvents = function () {
+  var _loadMenuEvents = function () {
     if (window.addEventListener) {
       window.addEventListener('keydown', _actions, false);
     } else if (window.attachEvent) {
@@ -74,7 +84,7 @@ Tlop.Splash = (function() {
     }
   };
 
-  var _unloadEvents = function () {
+  var _unloadMenuEvents = function () {
     if (window.addEventListener) {
       window.removeEventListener('keydown', _actions);
     } else if (window.attachEvent) {
@@ -86,4 +96,5 @@ Tlop.Splash = (function() {
     load: _load,
     unload: _unload
   };
+
 })();

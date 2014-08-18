@@ -6,7 +6,7 @@ Tlop.Script = (function() {
     NPC: {}
   };
 
-  var _loadScript = function() {
+  var _loadScript = function(script) {
     console.log('loading ' + script + ' script');
   };
 

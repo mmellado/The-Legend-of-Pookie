@@ -31,9 +31,16 @@ Tlop.Utils = (function() {
     el.className = classes;
   }
 
+  function _getTemplate(name) {
+    var w = document.createElement('DIV');
+    w.innerHTML = Tlop.Templates[name]();
+    return w.firstChild;
+  }
+
   return {
     hasClass: _hasClass,
     addClass: _addClass,
-    removeClass: _removeClass
+    removeClass: _removeClass,
+    getTemplate: _getTemplate
   };
 })();

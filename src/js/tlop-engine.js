@@ -1,6 +1,6 @@
 var Tlop = Tlop || {};
 
-Tlop.Engine = (function() {
+Tlop.Game = (function() {
 
   var _init = function() {
     Tlop.Splash.load();

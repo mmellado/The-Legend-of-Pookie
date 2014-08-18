@@ -190,15 +190,12 @@ Tlop.Map = (function() {
 
   var _render = function(mapName, startCords) {
 
-    var w = window.innerWidth,
-        h = window.innerHeight,
-        fieldMapFile = _buildMapObject(mapName, MAPS[mapName].field),
+    var fieldMapFile = _buildMapObject(mapName, MAPS[mapName].field),
         objectMapFile = _buildMapObject(mapName, MAPS[mapName].objects),
         fieldTiles = fieldMapFile.tiles,
         objectTiles = objectMapFile.tiles,
-        fieldBlock,
-        objectBlock,
-        tile, i;
+        fieldBlock, objectBlock,
+        i;
 
     // Clear the current screen
     Tlop.Const.DOM.TLOP.innerHTML = '<div id="field"></div><div id="map"></div>';
@@ -225,10 +222,10 @@ Tlop.Map = (function() {
     // Render the map
     for (i = 0; i < fieldTiles.length; i++) {
         fieldBlock = _buildBlock(fieldTiles[i]);
-        objectTile = _buildBlock(objectTiles[i]);
+        objectBlock = _buildBlock(objectTiles[i]);
 
         _field.appendChild(fieldBlock);
-        _map.appendChild(objectTile);
+        _map.appendChild(objectBlock);
     }
 
   };
